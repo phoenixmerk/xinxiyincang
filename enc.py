@@ -1,4 +1,8 @@
+import random
 import string
+
+alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789*'
+char = random.choice(alphabet)
 
 matrix = ['A5', 'B13', 'B40', 'A31', 'B8', 'B33', 'B5', 'B59', 'B37', 'C35', 'C53', 'C60', 'C1', 'A16', '', 'D5', 'B36',
           'D30', 'C28', 'A34', 'D4', 'C49', 'A56', 'B22', 'A57', 'D13', 'C48', 'C20', 'A40', 'D29', 'A45', 'B29', 'D50',
@@ -18,7 +22,7 @@ matrix = ['A5', 'B13', 'B40', 'A31', 'B8', 'B33', 'B5', 'B59', 'B37', 'C35', 'C5
           'D27', 'C30', 'A39', 'A48', 'B7', 'A25', 'D2', 'B24', 'B20', 'B11', 'A3', 'B19']
 cipher = ['' for _ in range(256)]
 print("----------------------------------------------------------------")
-plaintext = "I W4nt 7o p1ay 5tar rail day and night"
+plaintext = "2hZ0K4f61m 21awdT7b5Bn8GzQHv luVcOPqIrFsDY3XoECdMwpJitxAyLSU"
 print("明文长度为：", len(plaintext))
 key = [(5, 8),(11, 5),(3, 17),(9, 4)]
 num_offsets = [4, 3, 9, 6]
@@ -43,8 +47,24 @@ for i in range(len(cipher)):
 print(cipher)
 txt = ''
 
-with open("code.txt", "w") as file:
+with open("real.txt", "w") as file:
     for i in range(256):
         file.write(cipher[i])
         if (i + 1) % 16 == 0:
             file.write("\n")
+
+with open("code.txt", "w") as file:
+    for j in range(18):
+        file.write(random.choice(alphabet))
+
+    file.write("\n")
+    file.write(random.choice(alphabet))
+    for i in range(256):
+        file.write(cipher[i])
+        if i % 16 == 15:
+            file.write(random.choice(alphabet))
+            file.write("\n")
+            file.write(random.choice(alphabet))
+
+    for j in range(17):
+        file.write(random.choice(alphabet))
