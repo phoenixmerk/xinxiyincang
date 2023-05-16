@@ -28,7 +28,7 @@ with open("code.txt", "r") as file:
         txt = file.readline().strip()
         for j in range(16):
             cipher.append(txt[j])
-            print(cipher)
+            # print(cipher)
 
 print(cipher)
 for i in range(4):
