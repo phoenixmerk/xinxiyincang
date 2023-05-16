@@ -19,9 +19,8 @@ matrix = ['A5', 'B13', 'B40', 'A31', 'B8', 'B33', 'B5', 'B59', 'B37', 'C35', 'C5
 cipher = ['' for _ in range(256)]
 print("----------------------------------------------------------------")
 plaintext = "i w4nt 7o p1ay 5tar rail day and night"
-# i want to play star rail day and night
 print("明文长度为：", len(plaintext))
-key = [5, 8]
+key = [(5, 8),(11, 5),(3, 17),(9, 4)]
 num_offsets = [4, 3, 9, 6]
 
 for i in range(4):
@@ -31,9 +30,9 @@ for i in range(4):
             cipher[index] = '*'
         else:
             if plaintext[j] in string.ascii_lowercase:
-                cipher[index] = chr(((ord(plaintext[j])-ord('a')) * key[0] + key[1]) % 26 + ord('a'))
+                cipher[index] = chr(((ord(plaintext[j])-ord('a')) * key[i][0] + key[i][1]) % 26 + ord('a'))
             elif plaintext[j] in string.ascii_uppercase:
-                cipher[index] = chr(((ord(plaintext[j])-ord('a')) * key[0] + key[1]) % 26 + ord('A'))
+                cipher[index] = chr(((ord(plaintext[j])-ord('a')) * key[i][0] + key[i][1]) % 26 + ord('A'))
             else:
                 cipher[index] = str((int(plaintext[j]) + num_offsets[i]) % 10)
 
