@@ -21,32 +21,112 @@ matrix = ['A5', 'B13', 'B40', 'A31', 'B8', 'B33', 'B5', 'B59', 'B37', 'C35', 'C5
 plaintext = ['' for _ in range(4)]
 key = [(5, 8), (11, 5), (3, 17), (9, 4)]
 num_offsets = [4, 3, 9, 6]
-cipher = []
+# cipher = []
+#
+# with open("real.txt", "r") as file:
+#     for i in range(16):
+#         txt = file.readline().strip()
+#         for j in range(16):
+#             cipher.append(txt[j])
+#             # print(cipher)
+#
+# print(len(cipher))
+#
+# for i in range(4):
+#     for j in range(60):
+#         index = matrix.index(chr(ord('A') + i) + str(j + 1))
+#         if cipher[index] == "*":
+#             plaintext[i] += " "
+#         elif cipher[index] != "+":
+#             if cipher[index] in string.ascii_lowercase:
+#                 plaintext[i] += chr(
+#                     ((ord(cipher[index]) - ord('a') - key[i][1]) * invert(key[i][0], 26)) % 26 + ord('a'))
+#             elif cipher[index] in string.ascii_uppercase:
+#                 plaintext[i] += chr(
+#                     ((ord(cipher[index]) - ord('A') - key[i][1]) * invert(key[i][0], 26)) % 26 + ord('A'))
+#             else:
+#                 plaintext[i] += str((int(cipher[index]) - num_offsets[i]) % 10)
+#         else:
+#             plaintext[i] += "*"
+# print("解密后的明文:")
+# for i in plaintext:
+#     print(i)
+
+# tmp = []
+#
+# with open("code.txt", "r") as file:
+#     for i in range(18):
+#         txt = file.readline().strip()
+#         for j in range(18):
+#             tmp.append(txt[j])
+#
+# import random
+# import string
+#
+#
+# def replace_characters(lst):
+#     # 选择随机的两个索引
+#     indices = random.sample(range(len(lst)), 130)
+#     # 生成替换的随机字母
+#     replacements = random.choices(string.ascii_letters, k=130)
+#     # 替换列表中的字符
+#     for i, idx in enumerate(indices):
+#         lst[idx] = replacements[i]
+#     return lst
+#
+#
+# # 示例用法
+# tmp = replace_characters(tmp)
+# print(tmp)
+#
+# def write_to_file(lst, filename):
+#     with open(filename, "w") as file:
+#         for i in range(0, len(lst), 18):
+#             line = lst[i:i + 18]
+#             line_str = "".join(line)
+#             file.write(line_str + "\n")
+#
+#
+# write_to_file(tmp, "code.txt")
+
+cipher1 = []
 
 with open("code.txt", "r") as file:
-    for i in range(16):
-        txt = file.readline().strip()
-        for j in range(16):
-            cipher.append(txt[j])
-            # print(cipher)
+    next(file)  # 跳过第一行
+    prev_line = ""  # 用于记录上一行的内容
+    for line in file:
+        line = line.strip()  # 去除行尾的换行符
+        if prev_line:  # 检查是否为最后一行
+            chars = prev_line[1:17]  # 提取第2到17个字符
+            cipher1.extend(chars)
+        prev_line = line  # 记录当前行的内容
 
-print(cipher)
+# print(cipher)
+print(cipher1)
+
+# count = 0
+# for i in range(0, 256):
+#     if (cipher[i] == cipher1[i]):
+#         count += 1
+# print(count)
+
+plaintext1 = ['' for _ in range(4)]
 for i in range(4):
     for j in range(60):
         index = matrix.index(chr(ord('A') + i) + str(j + 1))
-        if cipher[index] == "*":
-            plaintext[i] += " "
-        elif cipher[index] != "+":
-            if cipher[index] in string.ascii_lowercase:
-                plaintext[i] += chr(
-                    ((ord(cipher[index]) - ord('a') - key[i][1]) * invert(key[i][0], 26)) % 26 + ord('a'))
-            elif cipher[index] in string.ascii_uppercase:
-                plaintext[i] += chr(
-                    ((ord(cipher[index]) - ord('A') - key[i][1]) * invert(key[i][0], 26)) % 26 + ord('A'))
+        if cipher1[index] == "*":
+            plaintext1[i] += " "
+        elif cipher1[index] != "+":
+            if cipher1[index] in string.ascii_lowercase:
+                plaintext1[i] += chr(
+                    ((ord(cipher1[index]) - ord('a') - key[i][1]) * invert(key[i][0], 26)) % 26 + ord('a'))
+            elif cipher1[index] in string.ascii_uppercase:
+                plaintext1[i] += chr(
+                    ((ord(cipher1[index]) - ord('A') - key[i][1]) * invert(key[i][0], 26)) % 26 + ord('A'))
             else:
-                plaintext[i] += str((int(cipher[index]) - num_offsets[i]) % 10)
+                plaintext1[i] += str((int(cipher1[index]) - num_offsets[i]) % 10)
         else:
-            plaintext[i] += "*"
+            plaintext1[i] += "*"
 print("解密后的明文:")
-for i in plaintext:
+for i in plaintext1:
     print(i)

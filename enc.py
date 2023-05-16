@@ -22,7 +22,7 @@ matrix = ['A5', 'B13', 'B40', 'A31', 'B8', 'B33', 'B5', 'B59', 'B37', 'C35', 'C5
           'D27', 'C30', 'A39', 'A48', 'B7', 'A25', 'D2', 'B24', 'B20', 'B11', 'A3', 'B19']
 cipher = ['' for _ in range(256)]
 print("----------------------------------------------------------------")
-plaintext = "2hZ0K4f61m 21awdT7b5Bn8GzQHv luVcOPqIrFsDY3XoECdMwpJitxAyLSU"
+plaintext = "i want to play star rail day and night"
 print("明文长度为：", len(plaintext))
 key = [(5, 8),(11, 5),(3, 17),(9, 4)]
 num_offsets = [4, 3, 9, 6]
@@ -68,3 +68,5 @@ with open("code.txt", "w") as file:
 
     for j in range(17):
         file.write(random.choice(alphabet))
+
+
