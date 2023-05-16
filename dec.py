@@ -1,7 +1,6 @@
 import string
 from gmpy2 import invert
 
-
 matrix = ['A5', 'B13', 'B40', 'A31', 'B8', 'B33', 'B5', 'B59', 'B37', 'C35', 'C53', 'C60', 'C1', 'A16', '', 'D5', 'B36',
           'D30', 'C28', 'A34', 'D4', 'C49', 'A56', 'B22', 'A57', 'D13', 'C48', 'C20', 'A40', 'D29', 'A45', 'B29', 'D50',
           'D45', 'C44', 'B42', 'B31', 'D6', 'D8', 'D31', 'C23', 'C8', 'B45', 'B21', 'D20', 'B46', 'C55', 'D35', 'A14',
@@ -19,16 +18,17 @@ matrix = ['A5', 'B13', 'B40', 'A31', 'B8', 'B33', 'B5', 'B59', 'B37', 'C35', 'C5
           'B34', 'D1', '', 'A53', 'B1', 'C18', 'D17', 'B18', 'D59', 'D12', 'C6', 'D51', 'A36', 'B38', 'C16', 'D36',
           'D27', 'C30', 'A39', 'A48', 'B7', 'A25', 'D2', 'B24', 'B20', 'B11', 'A3', 'B19']
 # cipher = ['v', 'f', '+', 'v', '0', '*', 's', '+', 'e', 'p', '+', '+', 'p', '9', '+', 'r', 't', 'e', 'l', 'v', '0', '+', '+', 'f', '+', 'e', '+', '*', '+', '*', '+', '*', '+', '+', '+', '+', 's', 't', '3', 'r', 'p', '6', '+', 'k', '*', '+', '+', 'y', 'y', 'e', '+', '+', 'm', 'p', '*', '+', '+', '+', '+', '+', '*', 'i', 'f', '+', '+', '+', 'u', '+', 'y', '+', 'n', '+', '*', 'g', '+', '3', '*', '*', '*', '+', '+', 'j', 'i', '+', 'x', '*', '+', 'm', '+', '+', 'y', 'a', '+', '+', 'd', 'i', '*', '+', '*', '0', '+', '+', '+', '+', '+', 'b', 'a', 'f', '+', 'f', 'p', 'l', 'x', 'e', '5', 'z', 'r', '+', 'w', '*', 'j', 'j', '1', 'w', '*', '+', 'a', 'r', '+', '+', '+', '+', 'y', '*', 'p', '*', '*', '4', 'e', '+', '+', 'f', '+', 'i', 'e', '+', 'r', '+', '+', 'h', 'p', 'k', '+', '+', '+', '+', '*', 'w', '*', '+', '+', '+', '*', '+', '+', 'p', 'b', '+', '+', '+', '+', '+', '+', '+', '*', 'a', 'z', '+', 'q', '+', '8', '*', '+', '*', '7', 'm', 'z', 'i', '+', '1', '+', 'l', '+', 'r', 'z', '+', '+', '+', '8', 'm', 'f', '+', '+', '+', 't', '+', '+', '+', 'w', 'e', '+', 'r', '*', '+', '+', '+', 'g', 'j', '+', 'w', 'm', '+', '*', '+', 'q', '+', 'f', '*', 's', 'y', '+', '+', 'p', 'r', 't', 'f', '+', '7', 'w', '+', 'm', 'g', '4', 'g', 'e', 'r', '+', '+', '*', '*', '*', 'w', '*', 'o', 'o', 'k']
-cipher = []
 plaintext = ['' for _ in range(4)]
-key = [(5, 8),(11, 5),(3, 17),(9, 4)]
+key = [(5, 8), (11, 5), (3, 17), (9, 4)]
 num_offsets = [4, 3, 9, 6]
-# cipher = ''
+cipher = []
 
-for i in range(16):
-    txt = input("请输入第{}行:".format(i + 1))
-    for j in range(16):
-        cipher.append(txt[j])
+with open("code.txt", "r") as file:
+    for i in range(16):
+        txt = file.readline().strip()
+        for j in range(16):
+            cipher.append(txt[j])
+            print(cipher)
 
 print(cipher)
 for i in range(4):
@@ -38,9 +38,11 @@ for i in range(4):
             plaintext[i] += " "
         elif cipher[index] != "+":
             if cipher[index] in string.ascii_lowercase:
-                plaintext[i] += chr(((ord(cipher[index]) - ord('a') - key[i][1]) * invert(key[i][0], 26)) % 26 + ord('a'))
+                plaintext[i] += chr(
+                    ((ord(cipher[index]) - ord('a') - key[i][1]) * invert(key[i][0], 26)) % 26 + ord('a'))
             elif cipher[index] in string.ascii_uppercase:
-                plaintext[i] += chr(((ord(cipher[index]) - ord('A') - key[i][1]) * invert(key[i][0], 26)) % 26 + ord('A'))
+                plaintext[i] += chr(
+                    ((ord(cipher[index]) - ord('A') - key[i][1]) * invert(key[i][0], 26)) % 26 + ord('A'))
             else:
                 plaintext[i] += str((int(cipher[index]) - num_offsets[i]) % 10)
         else:

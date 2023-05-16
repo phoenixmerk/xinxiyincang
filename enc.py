@@ -18,7 +18,7 @@ matrix = ['A5', 'B13', 'B40', 'A31', 'B8', 'B33', 'B5', 'B59', 'B37', 'C35', 'C5
           'D27', 'C30', 'A39', 'A48', 'B7', 'A25', 'D2', 'B24', 'B20', 'B11', 'A3', 'B19']
 cipher = ['' for _ in range(256)]
 print("----------------------------------------------------------------")
-plaintext = "i w4nt 7o p1ay 5tar rail day and night"
+plaintext = "I W4nt 7o p1ay 5tar rail day and night"
 print("明文长度为：", len(plaintext))
 key = [(5, 8),(11, 5),(3, 17),(9, 4)]
 num_offsets = [4, 3, 9, 6]
@@ -32,7 +32,7 @@ for i in range(4):
             if plaintext[j] in string.ascii_lowercase:
                 cipher[index] = chr(((ord(plaintext[j])-ord('a')) * key[i][0] + key[i][1]) % 26 + ord('a'))
             elif plaintext[j] in string.ascii_uppercase:
-                cipher[index] = chr(((ord(plaintext[j])-ord('a')) * key[i][0] + key[i][1]) % 26 + ord('A'))
+                cipher[index] = chr(((ord(plaintext[j])-ord('A')) * key[i][0] + key[i][1]) % 26 + ord('A'))
             else:
                 cipher[index] = str((int(plaintext[j]) + num_offsets[i]) % 10)
 
@@ -42,7 +42,9 @@ for i in range(len(cipher)):
 
 print(cipher)
 txt = ''
-for i in range(256):
-    print(cipher[i], end=' ')
-    if (i + 1) % 16 == 0:
-        print("\n")
+
+with open("code.txt", "w") as file:
+    for i in range(256):
+        file.write(cipher[i])
+        if (i + 1) % 16 == 0:
+            file.write("\n")
